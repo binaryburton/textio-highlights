@@ -1,76 +1,29 @@
-## Welcome to Textio's frontend interview starter!
+# How I solved this problem
 
-This is a `Create React App` project with data preinstalled to support the interview problem. In `src/App.js`, you should see a pair of imports from `@textio/frontend-interview-data`: you'll use that data to support your solution, replacing what's currently rendered in `App.js`.
+I boiled this problem down to 2 problems to solve
+1. Create a new highlights array that have no set-ranges that that cross over into other set-ranges, which is decided by each objects priorioty
+2. Highlight the ranged characters with their corresponding colors
 
-The rest of this README comes straight from `Create React App`:
+Both problems branched out into their own steps that needed to be solved one after another to complete each of the 2 problems
 
-***
+1a. Order highlights in ascending order based on the startOffset<br />
+1b. Find all contradicting ranges starting from [0]<br />
+1c. Resolve each range based on priority<br />
+1d. Add id's to each highlight object for rending through an array with a proper key
+I am now left with an array of highlight objects that have clean start and end offsets that don't spill into anyother offset range in the array, or order with ids
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+2a. Need to differentiate between highlighted text vs non-highlighted text<br />
+2b. Create function that takes in a color and text and return a span element with style color in a single string<br />
+2c. Reconstruct text with a loop, go through each highlight object in array, find normal text and call span-color function, and add to reconstructed text(string), until have one long string<br />
+2d. Take string and render it to the html<br />
 
-## Available Scripts
+### DONE.
 
-In the project directory, you can run:
 
-### `yarn start`
-
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+#### Render all manipulated highlights object
+      {newHighlights.map((element) => (
+        <div key={element.id}>
+          {element.startOffset} -{element.endOffset} -{element.color} -
+          {element.priority}
+        </div>
+      ))}
